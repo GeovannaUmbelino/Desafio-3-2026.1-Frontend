@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A.N.G.E.L.I.C.A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/style.css" />
+ 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="header__inner">
+      <div class="header__brand">
+        <span class="header__logo-text">A.N.G.E.L.I.C.A</span>
+        <span class="header__tagline">Agência Nacional de Gerenciamento de Estados e Logística de Informações Continentais para Análise</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="region-bar">
+      <label class="region-bar__label" for="regionSelect">Região:</label>
+      <select class="region-bar__select" id="regionSelect">
+        <option value="">Todas</option>
+        <option value="Norte">Norte</option>
+        <option value="Nordeste">Nordeste</option>
+        <option value="Sul">Sul</option>
+        <option value="Sudeste">Sudeste</option>
+        <option value="Centro-Oeste">Centro-Oeste</option>
+      </select>
+    </section>
+
+    <section class="accordion-section">
+      <button class="accordion-trigger" id="accordionTrigger" aria-expanded="false" aria-controls="accordionBody">
+        <span class="accordion-trigger__label">Unidades da Federação</span>
+        <span class="accordion-trigger__icon" aria-hidden="true">&#x25BC;</span>
+      </button>
+      <div class="accordion-body" id="accordionBody" role="region" aria-labelledby="accordionTrigger">
+        <div class="uf-grid" id="ufGrid">
+        </div>
+      </div>
+    </section>
+
+    <section class="kpi-row">
+      <div class="kpi-card">
+        <span class="kpi-card__label">Total de cidades encontradas</span>
+        <span class="kpi-card__value" id="kpiCidades">—</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-card__label">ID do UF</span>
+        <span class="kpi-card__value" id="kpiUfId">—</span>
+      </div>
+      <div class="kpi-card kpi-card--region">
+        <span class="kpi-card__label">Região</span>
+        <span class="kpi-card__value" id="kpiRegiao">—</span>
+      </div>
+    </section>
+
+    <section class="table-section">
+      <div class="table-section__header">
+        <h2 class="table-section__title">Municípios</h2>
+        <div class="search-box">
+          <span class="search-box__icon" aria-hidden="true">
+            <img src="./assets/lupa (1).png" alt="" style="width: 18px; height: auto;" />
+          </span>
+          <input
+            class="search-box__input"
+            id="municipioSearch"
+            type="text"
+            placeholder="Buscar por nome ou ID IBGE…"
+            aria-label="Filtrar municípios por nome ou ID IBGE"
+          />
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <table class="data-table" id="municipiosTable">
+          <thead>
+            <tr>
+              <th class="data-table__th">Nome</th>
+              <th class="data-table__th data-table__th--id">ID</th>
+            </tr>
+          </thead>
+          <tbody id="municipiosBody">
+            <tr class="data-table__empty">
+              <td colspan="2">Selecione uma UF para ver os municípios.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="metrics-section">
+      <h2 class="metrics-section__title">Métricas Territoriais</h2>
+
+      <div class="metrics-grid">
+  
+        <div class="metric-card metric-card--chart">
+          <h3 class="metric-card__title">UFs por Região</h3>
+          <div class="chart-container">
+            <canvas id="ufsPieChart"></canvas>
+          </div>
+          <div class="chart-legend" id="pieLegend"></div>
+        </div>
+
+        <div class="metric-card metric-card--map">
+          <h3 class="metric-card__title">Densidade Demográfica — População Residente</h3>
+          <div class="map-wrapper">
+            <div class="map-placeholder">
+              <img
+                src="./assets/Captura de tela 2026-05-24 131856 (1).png"
+                alt="Mapa do Brasil"
+                class="map-img"
+                id="brasilMap"
+              />
+              <div class="map-tooltip" id="mapTooltip" aria-live="polite"></div>
+            </div>
+            <div class="map-info">
+              <div class="map-area-badge">
+                <span class="map-area-badge__label">Área:</span>
+                <span class="map-area-badge__value">8.510.417,77 km²</span>
+              </div>
+              <ul class="map-legend">
+                <li class="map-legend__item"><span class="map-legend__dot" style="background:#B72B48"></span>Mais de 20 milhões de pessoas</li>
+                <li class="map-legend__item"><span class="map-legend__dot" style="background:#F06953"></span>10 milhões a 20 milhões de pessoas</li>
+                <li class="map-legend__item"><span class="map-legend__dot" style="background:#FAA568"></span>5 milhões a 10 milhões de pessoas</li>
+                <li class="map-legend__item"><span class="map-legend__dot" style="background:#F9D380"></span>1 milhão a 5 milhões de pessoas</li>
+                <li class="map-legend__item"><span class="map-legend__dot" style="background:#FBFAC6"></span>Menos de 1 milhão de pessoas</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="metric-card">
+        <h3 class="metric-card__title">IDH Médio</h3>
+        <div class="kpi-card__value" id="kpiIdh" style="text-align: center; margin-top: 20px;">—</div>
+    </div>
+
+    <div class="metric-card">
+        <h3 class="metric-card__title">Concentração Logística</h3>
+        <div class="kpi-card__value" id="kpiCapital" style="text-align: center; margin-top: 20px; font-size: 1.2rem;">—</div>
+    </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>&copy; 2026 A.N.G.E.L.I.C.A - Agência Nacional de Gerenciamento de Estados e Logística.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <script src="./js/script.js"></script>
+</body>
+</html>
